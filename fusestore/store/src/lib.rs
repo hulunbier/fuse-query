@@ -21,3 +21,15 @@ pub mod fs;
 pub mod localfs;
 pub mod meta_service;
 pub mod metrics;
+
+#[allow(clippy::all)]
+pub mod protobuf {
+    // tonic::include_proto!("store_meta");
+    include!(concat!(env!("OUT_DIR"), concat!("/store_meta.rs")));
+}
+pub mod executor;
+
+mod io;
+mod meta;
+mod poc;
+mod spec;

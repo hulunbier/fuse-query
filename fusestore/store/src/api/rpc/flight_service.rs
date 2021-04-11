@@ -17,17 +17,20 @@ use futures::{SinkExt, Stream, StreamExt};
 use log::info;
 use prost::Message;
 use tonic::{Request, Response, Status, Streaming};
+use crate::executor::ActionHandler;
 
 use crate::configs::Config;
 
 pub type FlightStream<T> =
-    Pin<Box<dyn Stream<Item = Result<T, tonic::Status>> + Send + Sync + 'static>>;
+Pin<Box<dyn Stream<Item=Result<T, tonic::Status>> + Send + Sync + 'static>>;
 
-pub struct FlightService {}
+pub struct FlightService {
+    handler: ActionHandler,
+}
 
 impl FlightService {
     pub fn create(_conf: Config) -> Self {
-        Self {}
+        todo!()
     }
 
     pub fn make_server(self) -> FlightServer<impl Flight> {
@@ -137,15 +140,12 @@ impl Flight for FlightService {
     ) -> Result<Response<Self::DoActionStream>, Status> {
         let action: StoreDoAction = request.try_into()?;
         info!("Receive do_action: {:?}", action);
+        self.handler.execute(&action)
+            .await.map_err(|e| Status::internal(e.to_string()))?;
 
-        match action {
-            StoreDoAction::CreateDatabase(_) => {
-                Err(Status::internal("Store create database unimplemented"))
-            }
-            StoreDoAction::CreateTable(_) => {
-                Err(Status::internal("Store create table unimplemented"))
-            }
-        }
+        // fake impl, for POC only
+        let stream = futures::stream::once(async {Ok(arrow_flight::Result::default())});
+        Ok(Response::new(Box::pin(stream)))
     }
 
     type ListActionsStream = FlightStream<ActionType>;

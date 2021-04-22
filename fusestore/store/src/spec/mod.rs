@@ -6,4 +6,6 @@ pub use db_spec::DatabaseSpec;
 pub use tbl_spec::TableSpec;
 
 mod db_spec;
+mod tbl_ops;
 mod tbl_spec;
+mod transaction;

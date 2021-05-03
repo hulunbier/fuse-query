@@ -116,7 +116,7 @@ impl FlightService for StoreFlightImpl {
             Ok(Response::new(Box::pin(output)))
         } else {
             Err(Status::unauthenticated(format!(
-                "Don't know user {}",
+                "Unknown user {}",
                 auth.username
             )))
         }

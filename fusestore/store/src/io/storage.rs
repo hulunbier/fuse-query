@@ -23,7 +23,7 @@ pub trait AsyncSeekableRead: AsyncRead + AsyncSeek {}
 #[async_trait]
 pub trait FS: Send + Sync {
     /// MUST be atomic
-    async fn put_if_absence(&self, path: &Path, name: &str, content: &[u8]) -> Result<()>;
+    async fn put_if_absent(&self, path: &Path, name: &str, content: &[u8]) -> Result<()>;
 
     /// concurrent write to the same path is undefined behavior, caller should provide a unique path
     async fn writer(&self, path: &Path) -> Result<Box<dyn AsyncWrite + Unpin>>;

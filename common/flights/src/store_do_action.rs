@@ -72,7 +72,7 @@ pub enum StoreDoActionResult {
     GetTable(GetTableActionResult)
 }
 
-/// Try convert tonic::Request<Action> to DoActionAction.
+/// Try to convert tonic::Request<Action> to DoActionAction.
 impl TryInto<StoreDoAction> for Request<Action> {
     type Error = tonic::Status;
 
@@ -92,7 +92,7 @@ impl TryInto<StoreDoAction> for Request<Action> {
     }
 }
 
-/// Try convert DoActionAction to tonic::Request<Action>.
+/// Try to convert DoActionAction to tonic::Request<Action>.
 impl TryInto<Request<Action>> for &StoreDoAction {
     type Error = anyhow::Error;
 

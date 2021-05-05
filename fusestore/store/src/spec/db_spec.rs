@@ -11,7 +11,7 @@ use crate::meta::DatabaseMeta;
 const DB_META_FILE_NAME: &str = "db_meta.json";
 
 pub struct DatabaseSpec {
-    fs: Arc<dyn FS>,
+    fs: Arc<dyn FS>
 }
 
 impl DatabaseSpec {
@@ -19,7 +19,7 @@ impl DatabaseSpec {
         let db_path = Path::new(&meta.name);
         let content = serde_json::to_string(&meta)?;
         self.fs
-            .put_if_absence(&db_path, DB_META_FILE_NAME, content.as_bytes())
+            .put_if_absent(&db_path, DB_META_FILE_NAME, content.as_bytes())
             .await
     }
 }

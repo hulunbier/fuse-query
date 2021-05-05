@@ -30,6 +30,6 @@ pub mod protobuf {
 
 mod io;
 mod meta;
-mod poc;
+pub(crate) mod poc;
 mod spec;
 mod transactions;

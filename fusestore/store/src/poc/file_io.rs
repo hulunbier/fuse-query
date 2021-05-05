@@ -14,14 +14,20 @@ use tokio::io::AsyncWrite;
 use crate::io::AsyncSeekableRead;
 use crate::io::FS;
 
-struct Namtso {
+pub(crate) struct Namtso {
     root: PathBuf,
-    staging: PathBuf,
+    staging: PathBuf
+}
+
+impl Namtso {
+    pub fn new(root: PathBuf, staging: PathBuf) -> Self {
+        Namtso { root, staging }
+    }
 }
 
 #[async_trait]
 impl FS for Namtso {
-    async fn put_if_absence(&self, path: &Path, name: &str, content: &[u8]) -> Result<()> {
+    async fn put_if_absent(&self, path: &Path, name: &str, content: &[u8]) -> Result<()> {
         //assuming rename is atomic, (HDFS and some local file systems)
 
         let unique_name = uuid::Uuid::new_v4().to_simple().to_string();
@@ -34,17 +40,17 @@ impl FS for Namtso {
     }
 
     async fn writer(&self, path: &Path) -> Result<Box<dyn AsyncWrite + Unpin>> {
-        let f = fs::File::create(path).await?;
+        let f = fs::File::create(self.root.join(path)).await?;
         Ok(Box::new(f))
     }
 
     async fn reader(&self, path: &Path) -> Result<Box<dyn AsyncRead>> {
-        let f = fs::File::create(path).await?;
+        let f = fs::File::create(self.root.join(path)).await?;
         Ok(Box::new(f))
     }
 
     async fn seekable_reader(&self, path: &Path) -> Result<Box<dyn AsyncSeekableRead>> {
-        let f = fs::File::create(path).await?;
+        let f = fs::File::create(self.root.join(path)).await?;
         Ok(Box::new(f))
     }
 }

@@ -167,7 +167,8 @@ impl Flight for FlightService {
                                 .map(Ok);
 
                             for batch in batch_flight_data {
-                                send_response(&sender, batch.clone()).await.ok();
+                                //send_response(&sender, batch).await.ok();
+                                send_response(&sender, batch).await;
                             }
                         }
                     }

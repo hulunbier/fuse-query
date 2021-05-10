@@ -56,6 +56,7 @@ tracing = "0.1.26"
 tracing-futures = { version = "0.2.5", default-features = false }
 tracing-subscriber = "0.2.18"
 uuid = { version = "0.8", features = ["serde", "v4"] }
+thiserror = "1.0.24"
 
 [dev-dependencies]
 pretty_assertions = "0.7"

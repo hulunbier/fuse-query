@@ -5,8 +5,7 @@
 
 pub enum IsolationLevel {
     SERIALIZABLE,
-    SNAPSHOT,
-    READ_COMMITTED,
+    SNAPSHOT
 }
 
 struct TableTransaction {}

@@ -67,6 +67,8 @@ impl Transaction {
     fn rollback(self) -> Result<()> {
         todo!()
     }
+
+    fn append_log()
 }
 
 struct Table {}
@@ -74,6 +76,39 @@ struct Table {}
 struct Schema;
 struct Filter;
 struct Part;
+
+struct TableCreation {}
+struct TableSchemaEvolution {}
+
+impl TableCreation {
+    fn schema(&self) -> Schema {
+        todo!()
+    }
+}
+
+trait Apply<Ctx> {
+    type R;
+    fn apply(&self, ctx: Ctx) -> Self::R;
+}
+
+trait Context {
+    fn with_tx<F, R>(&mut self, f: F) -> R
+    where F: Fn(&mut Transaction) -> R;
+}
+
+impl<C> Apply<&mut C> for TableCreation
+where C: Context
+{
+    type R = Result<()>;
+
+    fn apply(&self, ctx: &mut C) -> Result<()> {
+        ctx.with_tx(|tx| {
+            let schema = self.schema();
+            let table_meta = new_table_meta(schema);
+        });
+        Ok(())
+    }
+}
 
 impl Table {
     pub fn create(tx: &mut Transaction, schema: &Schema) -> Result<Table> {

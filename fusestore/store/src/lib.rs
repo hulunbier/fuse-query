@@ -22,12 +22,6 @@ pub mod localfs;
 pub mod meta_service;
 pub mod metrics;
 
-#[allow(clippy::all)]
-pub mod protobuf {
-    // tonic::include_proto!("store_meta");
-    include!(concat!(env!("OUT_DIR"), concat!("/store_meta.rs")));
-}
-
 mod io;
 mod meta;
 pub(crate) mod poc;

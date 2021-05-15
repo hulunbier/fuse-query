@@ -68,7 +68,9 @@ impl Transaction {
         todo!()
     }
 
-    fn append_log()
+    fn append_log() {
+        todo!()
+    }
 }
 
 struct Table {}
@@ -104,7 +106,7 @@ where C: Context
     fn apply(&self, ctx: &mut C) -> Result<()> {
         ctx.with_tx(|tx| {
             let schema = self.schema();
-            let table_meta = new_table_meta(schema);
+            //let table_meta = new_table_meta(schema);
         });
         Ok(())
     }

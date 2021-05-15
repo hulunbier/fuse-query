@@ -68,8 +68,6 @@ impl TableSpec {
         mut stream: std::pin::Pin<Box<dyn futures::Stream<Item = FlightData>>>
     ) -> Result<Vec<String>> {
         if let Some(flight_data) = stream.next().await {
-            flight_data.flight_descriptor;
-
             let data_schema = DataSchema::try_from(&flight_data)?;
             let meta = data_schema.metadata();
 

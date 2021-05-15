@@ -33,11 +33,6 @@ use crate::protobuf::Db;
 use crate::protobuf::Table;
 
 pub struct ActionHandler {
-    // TODO zbr's proposol
-    // catalog: Box<dyn Catalog>,
-    // tbl_spec: TableSpec,
-    // db_spec: DatabaseSpec,
-    // TODO delegate table/database RW to fs
     meta: Arc<Mutex<MemEngine>>,
     fs: Arc<dyn IFileSystem>
 }

@@ -52,7 +52,7 @@ criterion = "0.3.4"
 pretty_assertions = "0.7"
 
 [build-dependencies]
-tonic-build = { version = "0.4" }
+tonic-build = { version = "0.7" }
 
 [[bench]]
 name = "bench_main"

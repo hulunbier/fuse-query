@@ -48,7 +48,7 @@ warp = "0.3.0"
 uuid = { version = "0.8", features = ["serde", "v4"] }
 
 [dev-dependencies]
-criterion = "0.3.4"
+criterion = "0.4.0"
 pretty_assertions = "0.7"
 
 [build-dependencies]
